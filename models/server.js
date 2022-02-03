@@ -1,11 +1,13 @@
 const express = require('express')
-const cors = require('cors')
+const cors = require('cors');
+const { dbConnection } = require('../database/config');
 class Server{
   constructor(){
     this.app = express();
     this.port=process.env.PORT;
     this.usuariosPathing= '/api/usuarios'
 
+     this.conexionDB()
 
     //Middlewares
     this.middlewares();
@@ -13,6 +15,9 @@ class Server{
 
     //rutas de mi app   
     this.routes()
+  }
+async conexionDB(){
+ await dbConnection()
   }
   middlewares(){
     this.app.use(cors())
@@ -27,6 +32,7 @@ class Server{
   }
   listen(){
     this.app.listen(this.port)
+    console.log(`Servidor corriendo en : localhost:${this.port}`)
   }
 
 }
