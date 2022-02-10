@@ -6,6 +6,7 @@ class Server{
     this.app = express();
     this.port=process.env.PORT;
     this.usuariosPathing= '/api/usuarios'
+    this.authPath = '/api/auth'
 
      this.conexionDB()
 
@@ -25,9 +26,10 @@ async conexionDB(){
     this.app.use(express.json())
     
     //middleware que lleva al public
-    this.app.use(express.static('public'));
+    this.app.use(express.static('public')); 
   }
   routes(){
+   this.app.use( this.authPath,require('../routes/auth'));
    this.app.use( this.usuariosPathing,require('../routes/usuarios'));
   }
   listen(){
