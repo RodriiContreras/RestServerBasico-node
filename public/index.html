@@ -37,7 +37,7 @@
 
     let url = (window.location.hostname.includes('localhost'))
     ?'http://localhost:8080/api/auth/google'
-    :'http://restserver-node-rodri.herokuapp.com/api/auth/google'
+    :'https://restserver-node-rodri.herokuapp.com/api/auth/google'
 
     const  body = {id_token:response.credential}
     fetch(url,{
