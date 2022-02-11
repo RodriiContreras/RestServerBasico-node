@@ -7,7 +7,7 @@ class Server{
     this.port=process.env.PORT;
     this.usuariosPathing= '/api/usuarios'
     this.authPath = '/api/auth'
-    this.herokuPath = 'https://restserver-node-rodri.herokuapp.com'
+    this.herokuPath = '/'
      this.conexionDB()
 
     //Middlewares
