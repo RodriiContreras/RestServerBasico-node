@@ -35,12 +35,12 @@
         function handleCredentialResponse(response) {
     console.log(response.credential)
 
-    const url = 'http://localhost:8080/api/auth/google'
-    const herokUrl='https://restserver-node-rodri.herokuapp.com/'
-
+    let url = (window.location.hostname.includes('localhost'))
+    ?'http://localhost:8080/api/auth/google'
+    : 'http://restserver-node-rodri.herokuapp.com/api/auth/google'
 
     const  body = {id_token:response.credential}
-    fetch(url || herokUrl,{
+    fetch(url,{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
