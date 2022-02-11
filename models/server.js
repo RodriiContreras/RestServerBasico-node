@@ -17,9 +17,11 @@ class Server{
     //rutas de mi app   
     this.routes()
   }
+  
 async conexionDB(){
  await dbConnection()
   }
+
   middlewares(){
     this.app.use(cors())
     
@@ -28,11 +30,13 @@ async conexionDB(){
     //middleware que lleva al public
     this.app.use(express.static('public')); 
   }
+
   routes(){
    this.app.use( this.authPath,require('../routes/auth'));
    this.app.use( this.herokuPath,require('../routes/authHeroku'));
    this.app.use( this.usuariosPathing,require('../routes/usuarios'));
   }
+
   listen(){
     this.app.listen(this.port)
     console.log(`Servidor corriendo en : localhost:${this.port}`)
