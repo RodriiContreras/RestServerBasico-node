@@ -13,7 +13,7 @@ router.post('/login',[
 
 
 
-router.post('/',[
+router.post('/api/auth/google',[
     check('id_token','El Token de Google es obligatorio').not().isEmpty(),
     validarCamposs
 ],googleSign)
