@@ -1,13 +1,14 @@
 const express = require('express')
 const cors = require('cors');
 const { dbConnection } = require('../database/config');
+
 class Server{
   constructor(){
     this.app = express();
-    this.port=process.env.PORT;
+    this.port= process.env.PORT;
     this.usuariosPathing= '/api/usuarios'
     this.authPath = '/api/auth'
-    this.herokuPath = '/'
+    // this.herokuPath = '/'
      this.conexionDB()
 
     //Middlewares
@@ -33,7 +34,7 @@ async conexionDB(){
 
   routes(){
    this.app.use( this.authPath,require('../routes/auth'));
-   this.app.use( this.herokuPath,require('../routes/authHeroku'));
+  //  this.app.use( this.herokuPath,require('../routes/authHeroku'));
    this.app.use( this.usuariosPathing,require('../routes/usuarios'));
   }
 
