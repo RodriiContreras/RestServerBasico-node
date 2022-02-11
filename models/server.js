@@ -7,7 +7,7 @@ class Server{
     this.port=process.env.PORT;
     this.usuariosPathing= '/api/usuarios'
     this.authPath = '/api/auth'
-
+    this.herokuPath = '/'
      this.conexionDB()
 
     //Middlewares
@@ -30,6 +30,7 @@ async conexionDB(){
   }
   routes(){
    this.app.use( this.authPath,require('../routes/auth'));
+   this.app.use( this.herokuPath,require('../routes/authHeroku'));
    this.app.use( this.usuariosPathing,require('../routes/usuarios'));
   }
   listen(){
