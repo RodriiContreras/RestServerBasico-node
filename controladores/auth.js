@@ -2,6 +2,7 @@
 const {response} = require('express');
  const Usuario = require('../models/usuario')
  const {generarJWT} = require('../helpers/jwt')
+const {googleVerify} = require('../helpers/googleVerify')
 
  const login =  async(req,res = response)=>{
    const {email,password } = req.body;
@@ -49,10 +50,48 @@ const {response} = require('express');
         })
    }
 
+
  }
 
+ const googleSign= async (req , res=response) =>{
+  const {id_token} =req.body
 
+  try {
+      const {name,email,picture} = await googleVerify( id_token)
 
+      let usuario = await Usuario.findOne({email})
+      console.log(usuario)
+
+      if( !usuario ){
+          const data = {
+            name,
+            email,
+            password:'s',
+            picture,
+            google:true,
+            role:'USER_ROLE'
+          }
+
+          usuario = new Usuario( data );
+          await usuario.save()
+      }
+
+      if(!usuario.state){
+          return res.status(401).json({
+              msg:'Su cuenta esta dada de baja'
+          })
+      }
+
+      const token = await generarJWT(usuario.id)
+      res.json({
+    usuario,
+    token
+    })
+  } catch (error) {
+      console.log(error)
+  }
+ }
  module.exports={
-login
+login,
+googleSign
 }
