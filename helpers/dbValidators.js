@@ -36,9 +36,20 @@ const Usuario = require('../models/usuario')
       }
     }
 
+    const coleccionesPermitidas =(coleccion ='', colecciones=[]) =>{
+     const incluido = colecciones.includes(coleccion)
+
+     if(!incluido){
+       throw new Error('coleccion no permitida')
+     }
+
+     return true
+    }
+
    module.exports= {
        roleValido,
        emailExiste,
        usuarioIdExiste,
-       existeCategoriaId
+       existeCategoriaId,
+       coleccionesPermitidas
    }
